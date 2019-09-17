@@ -12,10 +12,14 @@ services:
 env:
   global:
   - NODE_ENV=test
+  - SECRET_KEY="travissecretkey"
+  - TEST_DB=ifindtest
+  - DB_USER=test_user
+  - DB_PASS=password
 
 before_script:
   - psql -c 'create database ifindtest;' -U postgres
-  - psql -c "CREATE USER test_user WITH PASSWORD null;" -U postgres
+  - psql -c "CREATE USER test_user WITH PASSWORD password;" -U postgres
   - npm install -g sequelize-cli
 script:
   - npm test

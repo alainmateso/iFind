@@ -27,7 +27,9 @@
                 "args": "none",
                 "mocha/no-exclusive-tests": "error"
             }
-        ]
+        ],
+        "no-undef": 0,
+        "import/prefer-default-export": 0,
     }
  }
  

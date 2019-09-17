@@ -6,11 +6,11 @@ module.exports = {
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    fname: {
+    first_name: {
       allowNull: false,
       type: Sequelize.STRING,
     },
-    lname: {
+    last_name: {
       allowNull: false,
       type: Sequelize.STRING,
     },
@@ -19,6 +19,10 @@ module.exports = {
       type: Sequelize.STRING,
     },
     phonenumber: {
+      allowNull: false,
+      type: Sequelize.STRING,
+    },
+    password: {
       allowNull: false,
       type: Sequelize.STRING,
     },

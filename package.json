@@ -4,7 +4,7 @@
   "description": "lost-and-found-webapp",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=dev babel-watch ./server.js",
+    "dev": "NODE_ENV=development babel-watch ./server.js",
     "test": "NODE_ENV=test mocha --require @babel/register __test__/index.spec.js --exit --timeout 10000",
     "generate-lcov": "nyc report --reporter=text-lcov > lcov.info && nyc report --reporter=html",
     "coveralls-coverage": "coveralls < lcov.info",
@@ -37,7 +37,7 @@
     "@babel/preset-env": "^7.6.0",
     "@babel/register": "^7.6.0",
     "@babel/runtime": "^7.6.0",
-    "@hapi/joi": "^16.1.0",
+    "@hapi/joi": "16.1.0",
     "babel-watch": "^7.0.0",
     "bcrypt": "^3.0.6",
     "cors": "^2.8.5",

@@ -8,6 +8,7 @@ module.exports = {
   //   use_env_variable: 'DATABASE_URL'
   // },
 
+
   development: {
     database: process.env.DB_NAME,
     username: process.env.DB_USER,

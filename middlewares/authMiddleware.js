@@ -22,7 +22,7 @@ export function verifyExistence({ body: { email } }, res, next) {
       email,
     },
   }).then((count) => {
-    if (count > 0) return responseHelper(res, 400, strings.users.errorMessages.USER_ALREADY_EXISTS);
+    if (count > 0) return responseHelper(res, 409, strings.users.errorMessages.USER_ALREADY_EXISTS);
     return next();
   });
 }

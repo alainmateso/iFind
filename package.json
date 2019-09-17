@@ -5,14 +5,14 @@
   "main": "index.js",
   "scripts": {
     "dev": "NODE_ENV=development babel-watch ./server.js",
-    "test": "NODE_ENV=test mocha --require @babel/register __test__/index.spec.js --exit --timeout 10000",
+    "test": "npm run migrate && npm run test-suite && npm run rollback",
+    "test-suite": " NODE_ENV=test mocha --require @babel/register __test__/index.spec.js --exit --timeout 10000",
     "generate-lcov": "nyc report --reporter=text-lcov > lcov.info && nyc report --reporter=html",
+    "migrate": "NODE_ENV=test sequelize db:migrate",
+    "rollback": "NODE_ENV=test sequelize db:migrate:undo:all",
     "coveralls-coverage": "coveralls < lcov.info",
     "codeclimate-coverage": "codeclimate-test-reporter < lcov.info",
-    "coverage": "nyc npm test && npm run generate-lcov && npm run coveralls-coverage && npm run codeclimate-coverage",
-    "createTables": "",
-    "dropTables": "",
-    "clearTestDB": ""
+    "coverage": "nyc npm test && npm run generate-lcov && npm run coveralls-coverage && npm run codeclimate-coverage"
   },
   "repository": {
     "type": "git",

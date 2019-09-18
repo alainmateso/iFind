@@ -11,6 +11,17 @@ const strings = {
       SUCCESSFULLY_SIGNED_IN_USER: 'Successfully logged in user',
     },
   },
+  posts: {
+    successMessages: {
+      ITEM_POSTED_SUCCESSFULLY: 'Item posted successfully!',
+    },
+  },
+  token: {
+    errorMessages: {
+      INVALID_TOKEN: 'Invalid Token!',
+      SIGN_IN_FIRST: 'Sign in to have access!',
+    },
+  },
 };
 
 export default strings;

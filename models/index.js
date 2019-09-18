@@ -1,3 +1,4 @@
+
 import fs from 'fs';
 import path from 'path';
 import Sequelize from 'sequelize';
@@ -7,7 +8,6 @@ const basename = path.basename(__filename);
 const env = process.env.NODE_ENV ? process.env.NODE_ENV : 'development';
 
 const config = configJson[env];
-
 
 const db = {};
 

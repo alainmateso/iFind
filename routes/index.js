@@ -1,7 +1,9 @@
-import express from 'express';
+import { Router } from 'express';
+import authRoutes from './auth';
 
-const router = express.Router();
+const router = Router();
 
-router.get('/', (req, res) => res.status(200).send({ message: 'This is ^Caret Lost and Found' }));
+router.use('/auth', authRoutes);
+router.get('*', (req, res) => res.status(200).send({ message: 'This is ^Caret, Route not foun on Lost and Found' }));
 
 export default router;

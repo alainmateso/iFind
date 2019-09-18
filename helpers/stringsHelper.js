@@ -11,6 +11,15 @@ const strings = {
       SUCCESSFULLY_SIGNED_IN_USER: 'Successfully logged in user',
     },
   },
+  posts: {
+    errorMessages: {
+      POST_NOT_FOUND: 'No Post Found',
+    },
+    successMessages: {
+      POSTS_FOUND: 'Posts Retrieved Sucessfully',
+      POST_FOUND: 'Post Retrieved Sucessfully',
+    },
+  },
 };
 
 export default strings;

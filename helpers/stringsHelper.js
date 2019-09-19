@@ -14,11 +14,15 @@ const strings = {
   posts: {
     errorMessages: {
       POST_NOT_FOUND: 'No Post Found',
+      EMPTY_ID: 'No ID found',
+      NOT_NUMBER: 'ID in params is not a number',
+      NOT_ALLOWED: 'You cannot delete this post'
     },
     successMessages: {
       POSTS_FOUND: 'Posts Retrieved Sucessfully',
-      POST_FOUND: 'Post Retrieved Sucessfully',
       ITEM_POSTED_SUCCESSFULLY: 'Item posted successfully!',
+      SUCCESSFULLY_DELETED_POST: 'Successfully Deleted Post',
+      SUCCESSFULLY_UPDATED_POST: 'Successfully Updated Post'
     },
   },
   token: {

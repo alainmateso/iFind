@@ -12,7 +12,12 @@ const strings = {
     },
   },
   posts: {
+    errorMessages: {
+      POST_NOT_FOUND: 'No Post Found',
+    },
     successMessages: {
+      POSTS_FOUND: 'Posts Retrieved Sucessfully',
+      POST_FOUND: 'Post Retrieved Sucessfully',
       ITEM_POSTED_SUCCESSFULLY: 'Item posted successfully!',
     },
   },

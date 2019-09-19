@@ -19,6 +19,11 @@ const strings = {
       POSTS_FOUND: 'Posts Retrieved Sucessfully',
       POST_FOUND: 'Post Retrieved Sucessfully',
       ITEM_POSTED_SUCCESSFULLY: 'Item posted successfully!',
+      ISSUE_RESOLVED: 'Issue Resolved!',
+    },
+    errorMessages: {
+      NOT_YOUR_POST: 'This is not your post!',
+      NOT_FOUND: 'Post Not Found',
     },
   },
   token: {

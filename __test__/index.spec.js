@@ -9,5 +9,5 @@ describe('Test Runner', () => {
   describe('Signin Tests', signInTests);
   describe('Get Posts Tests', getPostsTests);
   describe('Get One Post Tests', getOnePostTests);
-  describe('Create New Post Test', postTests);
+  describe('Post tests', postTests);
 });

@@ -75,11 +75,8 @@ export default class PostController {
   }
 
   static async deletePost(req, res) {
-    const {body} = req;
+    const { user} = req;
     const { id } = req.params;
-    if (isNaN(id)){
-        return responseHelper(res, 400, strings.posts.errorMessages.EMPTY_ID, id);
-    }
     try { 
          models.posts.findOne({
             where: {
@@ -90,33 +87,36 @@ export default class PostController {
             if(post === null) {
                 return responseHelper(res, 400, strings.posts.errorMessages.POST_NOT_FOUND);
             }
-            if(post.user_id === body.user.id || body.user.is_admin === true)
+            if(post.user_id === user.payload.id ||  user.payload.is_admin === true) {
                 post.destroy().then(() => {
-                    return responseHelper(res, 201, strings.posts.successMessages.SUCCESSFULLY_DELETED_POST);              
-                })
-            
-            return responseHelper(res, 201, strings.posts.errorMessages.NOT_ALLOWED);                          
+                  return responseHelper(res, 201, strings.posts.successMessages.SUCCESSFULLY_DELETED_POST);              
+                })      
+            }else{
+              return responseHelper(res, 201, strings.posts.errorMessages.NOT_ALLOWED);                          
+            }
         })
         }catch (error) {
             throw error;
         }
     }
     static async updatePost (req, res){
-        const alteredPost = req.body;
-        const { id } = req.params;
-        if (!Number(id)) {
-            return responseHelper(res, 400, strings.posts.errorMessages.NOT_NUMBER, id);
-        }
-        try {
-          const updatePost = await servicePost.updatePost(id, alteredPost);
-          if (!updatePost) {
-            return responseHelper(res, 404, strings.posts.errorMessages.POST_NOT_FOUND);
-          } else {
-            return responseHelper(res, 201, strings.posts.successMessages.SUCCESSFULLY_UPDATED_POST);
-          }
-        } catch (error) {
-            return responseHelper(res, 404,error);
-        }
+        const {body, user} = req;
+        models.posts.findOne({
+                where: { id: req.params.id}
+          }).then((post) => {
+            if(post === null) {
+              return responseHelper(res, 400, strings.posts.errorMessages.POST_NOT_FOUND);
+            }else{
+                  if(post.user_id === user.payload.id ||  user.payload.is_admin === true)
+                  {
+                    models.posts.update(body, { where: { id:  req.params.id } }).then(() => {
+                      return responseHelper(res, 400, 'updated post');
+                   });
+                  }else{
+                    return responseHelper(res, 201, strings.posts.errorMessages.NOT_ALLOWED);
 
+                  }
+            }
+          })
     }
 }

@@ -11,6 +11,19 @@ const strings = {
       SUCCESSFULLY_SIGNED_IN_USER: 'Successfully logged in user',
     },
   },
+
+
+  posts: {
+    errorMessages: {
+      EMPTY_ID: 'Enter the ID to delete',
+      NO_POST_FOUND: 'No data found',
+      NOT_NUMBER: 'Enter the number',
+    },
+    successMessages: {
+      SUCCESSFULLY_DELETED_POST: 'Post is Successfully Deleted',
+      SUCCESSFULLY_UPDATED_POST: 'Post is Successfully Updated',
+    },
+  },
 };
 
 export default strings;

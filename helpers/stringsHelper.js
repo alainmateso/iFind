@@ -27,6 +27,11 @@ const strings = {
       SIGN_IN_FIRST: 'Sign in to have access!',
     },
   },
+  id: {
+    errorMessages: {
+      ID_ERROR: 'The post id should be an integer',
+    },
+  },
 };
 
 export default strings;

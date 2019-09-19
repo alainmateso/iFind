@@ -30,6 +30,33 @@ export default class PostController {
     });
   }
 
+  static async getOnePost(req, res) {
+    const { id } = req.params;
+    models.posts.findOne({
+      where: {
+        id,
+      },
+      include: [{ // Notice include takes an ARRAY
+        model: models.users,
+        as: 'user',
+      }],
+    }).then((post) => {
+      if (!post) {
+        return responseHelper(res, 404, strings.posts.errorMessages.POST_NOT_FOUND);
+      }
+      const onePost = {
+        full_name: `${post.user.first_name} ${post.user.last_name}`,
+        email: post.user.email,
+        phonenumber: post.user.phonenumber,
+        description: post.description,
+        category_id: post.category_id,
+        type: post.type,
+        resolved: post.resolved,
+      };
+      return responseHelper(res, 200, strings.posts.successMessages.POST_FOUND, onePost);
+    });
+  }
+
   static async createPost(req, res) {
     const user_id = req.user.payload.id;
     const { description, category_id, type } = req.body;

@@ -18,6 +18,13 @@ const strings = {
     successMessages: {
       POSTS_FOUND: 'Posts Retrieved Sucessfully',
       POST_FOUND: 'Post Retrieved Sucessfully',
+      ITEM_POSTED_SUCCESSFULLY: 'Item posted successfully!',
+    },
+  },
+  token: {
+    errorMessages: {
+      INVALID_TOKEN: 'Invalid Token!',
+      SIGN_IN_FIRST: 'Sign in to have access!',
     },
   },
 };

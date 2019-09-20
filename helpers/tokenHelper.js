@@ -11,7 +11,6 @@ export function signUserToken(user) {
   }, process.env.SECRET_KEY, {
     expiresIn: '1d',
   });
-
   return token;
 }
 export const validateToken = (req, res, next) => {

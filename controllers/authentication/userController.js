@@ -37,4 +37,7 @@ export default class userController {
       return responseHelper(res, 404, strings.users.errorMessages.USER_NOT_FOUND_SIGNIN_REQUEST);
     });
   }
+  static async adminUser ({body}, res) {
+
+  }
 }

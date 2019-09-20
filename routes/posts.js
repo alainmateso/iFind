@@ -13,6 +13,8 @@ const router = express.Router();
 router.post('/', validateToken, createPostValidation, createPost);
 router.get('/', getAllPosts);
 router.get('/:id', checkId, getOnePost);
+router.delete('/:id', validateToken, PostController.deletePost);
+router.put('/:id', validateToken, checkId, PostController.updatePost);
 router.patch('/resolved/:id', checkId, validateToken, markPostAsResolved);
 
 export default router;

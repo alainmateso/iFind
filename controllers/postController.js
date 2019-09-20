@@ -1,6 +1,7 @@
 import models from '../models';
 import responseHelper from '../helpers/responseHelper';
 import strings from '../helpers/stringsHelper';
+import servicePost from '../services/servicePost';
 
 export default class PostController {
   static async getAllPosts(req, res) {
@@ -73,6 +74,52 @@ export default class PostController {
     }
   }
 
+
+  static async deletePost(req, res) {
+    const { user} = req;
+    const { id } = req.params;
+    try { 
+         models.posts.findOne({
+            where: {
+                id: parseInt(id)
+            }
+        }).then((post) => {
+
+            if(post === null) {
+                return responseHelper(res, 404, strings.posts.errorMessages.POST_NOT_FOUND);
+            }
+            if(post.user_id === user.payload.id ||  user.payload.is_admin === true) {
+                post.destroy().then(() => {
+                  return responseHelper(res, 200, strings.posts.successMessages.SUCCESSFULLY_DELETED_POST);              
+                })      
+            }else{
+              return responseHelper(res, 403, strings.posts.errorMessages.NOT_ALLOWED);                          
+            }
+        })
+        }catch (error) {
+            throw error;
+        }
+    }
+    static async updatePost (req, res){
+        const {body, user} = req;
+        models.posts.findOne({
+                where: { id: req.params.id}
+          }).then((post) => {
+            if(post === null) {
+              return responseHelper(res, 404, strings.posts.errorMessages.POST_NOT_FOUND);
+            }else{
+                  if(post.user_id === user.payload.id ||  user.payload.is_admin === true)
+                  {
+                    models.posts.update(body, { where: { id:  req.params.id } }).then(() => {
+                      return responseHelper(res, 200, strings.posts.successMessages.SUCCESSFULLY_UPDATED_POST);
+                   });
+                  }else{
+                    return responseHelper(res, 403, strings.posts.errorMessages.NOT_ALLOWED);
+
+                  }
+            }
+          })
+    }
   static async markPostAsResolved(req, res){
     const {id} = req.params;
     const {id:userId} = req.user.payload;

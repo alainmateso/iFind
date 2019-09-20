@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "NODE_ENV=development babel-watch ./server.js",
     "test": "npm run rollback && npm run migrate && npm run test-suite",
-    "test-suite": " NODE_ENV=test nyc --reporter=html --reporter=text mocha --require @babel/register __test__/index.spec.js --exit --timeout 10000",
+    "test-suite": " NODE_ENV=test nyc --reporter=html --reporter=text mocha --require @babel/register __test__/index.spec.js --exit --timeout 200000",
     "generate-lcov": "nyc report --reporter=text-lcov > lcov.info && nyc report --reporter=html",
     "migrate": "NODE_ENV=test sequelize db:migrate",
     "rollback": "NODE_ENV=test sequelize db:migrate:undo:all",

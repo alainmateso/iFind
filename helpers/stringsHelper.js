@@ -39,6 +39,34 @@ const strings = {
       ID_ERROR: 'The post id should be an integer',
     },
   },
+
+
+  admin: {
+    errorMessages:{
+      usernotfound:"can't find that user",
+      categoryfound:"category aleardy exist"
+    },
+    successMessages:{
+      user_actived:'user activated successfully',
+      user_deactived:'user deactivated successfully',
+      categorycreated:'category created successfully',
+    },
+  },
+
+  category:{
+    errorMessages:{
+      categoryerror:"unable to add that category"
+    },
+  },
+
+  protect: {
+    errorMessages:{
+      token_expered:'Token needed to get access to this page',
+      require_token:'Token expired',
+      Notauthorized:"Not authorized to this page you must be an admin to access this endpoint"
+    },
+  },
+  
 };
 
 export default strings;

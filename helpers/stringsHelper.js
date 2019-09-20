@@ -23,6 +23,11 @@ const strings = {
       ITEM_POSTED_SUCCESSFULLY: 'Item posted successfully!',
       SUCCESSFULLY_DELETED_POST: 'Successfully Deleted Post',
       SUCCESSFULLY_UPDATED_POST: 'Successfully Updated Post'
+      ISSUE_RESOLVED: 'Issue Resolved!',
+    },
+    errorMessages: {
+      NOT_YOUR_POST: 'This is not your post!',
+      NOT_FOUND: 'Post Not Found',
     },
   },
   token: {

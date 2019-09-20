@@ -74,6 +74,7 @@ export default class PostController {
     }
   }
 
+
   static async deletePost(req, res) {
     const { user} = req;
     const { id } = req.params;
@@ -119,4 +120,23 @@ export default class PostController {
             }
           })
     }
+  static async markPostAsResolved(req, res){
+    const {id} = req.params;
+    const {id:userId} = req.user.payload;
+    try {
+      const foundPost = await models.posts.findOne({
+        where: { id: Number(id) }
+      });
+      if (foundPost){
+        if(userId != foundPost.user_id){
+          return responseHelper(res, 403, strings.posts.errorMessages.NOT_YOUR_POST)
+        }
+        const resolvedPost = await foundPost.update({resolved: true});
+          return responseHelper(res, 200, strings.posts.successMessages.ISSUE_RESOLVED, resolvedPost);
+      }
+      return responseHelper(res, 404, strings.posts.errorMessages.NOT_FOUND);
+    } catch (error) {
+      return error;
+    }
+  }
 }

@@ -26,7 +26,7 @@ const wrongData = { description: '' };
 
 const invalidToken = 'dsdxasdxfedsdsfrdgfers';
 
-describe('Create New Post test', () => {
+describe('Post test', () => {
   before((done) => {
     chai.request(app)
       .post('/api/v1/auth/signup')
@@ -96,6 +96,57 @@ describe('Create New Post test', () => {
         res.body.should.be.a('object');
         res.body.should.have.property('status').eql(201);
         res.body.should.have.property('message').eql(`${strings.posts.successMessages.ITEM_POSTED_SUCCESSFULLY}`);
+        done();
+      });
+  });
+
+  it('Should Return 401 when you did not log in', (done) => {
+    chai.request(app)
+      .patch('/api/v1/posts/resolved/1')
+      .end((err, res) => {
+        res.should.have.status(401);
+        res.body.should.be.a('object');
+        res.body.should.have.property('status').eql(401);
+        res.body.should.have.property('message').eql(`${strings.token.errorMessages.SIGN_IN_FIRST}`);
+        done();
+      });
+  });
+
+  it('Should Return 400 when id is not integer', (done) => {
+    chai.request(app)
+      .patch('/api/v1/posts/resolved/id')
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.be.a('object');
+        res.body.should.have.property('status').eql(400);
+        res.body.should.have.property('message').eql(`${strings.id.errorMessages.ID_ERROR}`);
+        done();
+      });
+  });
+
+  it('Should Return 400 when you use an invalid token', (done) => {
+    chai.request(app)
+      .patch('/api/v1/posts/resolved/1')
+      .set('Authorization', `Bearer ${invalidToken}`)
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.be.a('object');
+        res.body.should.have.property('status').eql(400);
+        res.body.should.have.property('message').eql(`${strings.token.errorMessages.INVALID_TOKEN}`);
+        done();
+      });
+  });
+
+  it('Should mark a post as resolved', (done) => {
+    chai.request(app)
+      .patch('/api/v1/posts/resolved/3')
+      .set('Authorization', `Bearer ${userToken}`)
+      .send(newPost)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        res.body.should.have.property('status').eql(200);
+        res.body.should.have.property('message').eql(`${strings.posts.successMessages.ISSUE_RESOLVED}`);
         done();
       });
   });

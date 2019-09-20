@@ -22,7 +22,7 @@ const strings = {
       POSTS_FOUND: 'Posts Retrieved Sucessfully',
       ITEM_POSTED_SUCCESSFULLY: 'Item posted successfully!',
       SUCCESSFULLY_DELETED_POST: 'Successfully Deleted Post',
-      SUCCESSFULLY_UPDATED_POST: 'Successfully Updated Post'
+      SUCCESSFULLY_UPDATED_POST: 'Successfully Updated Post',
       ISSUE_RESOLVED: 'Issue Resolved!',
     },
     errorMessages: {

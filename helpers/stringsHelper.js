@@ -16,7 +16,9 @@ const strings = {
       POST_NOT_FOUND: 'No Post Found',
       EMPTY_ID: 'No ID found',
       NOT_NUMBER: 'ID in params is not a number',
-      NOT_ALLOWED: 'You cannot act on this post'
+      NOT_ALLOWED: 'You cannot act on this post',
+      NOT_YOUR_POST: 'This is not your post!',
+      NOT_FOUND: 'Post Not Found',
     },
     successMessages: {
       POSTS_FOUND: 'Posts Retrieved Sucessfully',
@@ -24,10 +26,6 @@ const strings = {
       SUCCESSFULLY_DELETED_POST: 'Successfully Deleted Post',
       SUCCESSFULLY_UPDATED_POST: 'Successfully Updated Post',
       ISSUE_RESOLVED: 'Issue Resolved!',
-    },
-    errorMessages: {
-      NOT_YOUR_POST: 'This is not your post!',
-      NOT_FOUND: 'Post Not Found',
     },
   },
   token: {

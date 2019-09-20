@@ -85,14 +85,14 @@ export default class PostController {
         }).then((post) => {
 
             if(post === null) {
-                return responseHelper(res, 400, strings.posts.errorMessages.POST_NOT_FOUND);
+                return responseHelper(res, 404, strings.posts.errorMessages.POST_NOT_FOUND);
             }
             if(post.user_id === user.payload.id ||  user.payload.is_admin === true) {
                 post.destroy().then(() => {
-                  return responseHelper(res, 201, strings.posts.successMessages.SUCCESSFULLY_DELETED_POST);              
+                  return responseHelper(res, 200, strings.posts.successMessages.SUCCESSFULLY_DELETED_POST);              
                 })      
             }else{
-              return responseHelper(res, 201, strings.posts.errorMessages.NOT_ALLOWED);                          
+              return responseHelper(res, 403, strings.posts.errorMessages.NOT_ALLOWED);                          
             }
         })
         }catch (error) {
@@ -105,15 +105,15 @@ export default class PostController {
                 where: { id: req.params.id}
           }).then((post) => {
             if(post === null) {
-              return responseHelper(res, 400, strings.posts.errorMessages.POST_NOT_FOUND);
+              return responseHelper(res, 404, strings.posts.errorMessages.POST_NOT_FOUND);
             }else{
                   if(post.user_id === user.payload.id ||  user.payload.is_admin === true)
                   {
                     models.posts.update(body, { where: { id:  req.params.id } }).then(() => {
-                      return responseHelper(res, 400, 'updated post');
+                      return responseHelper(res, 200, strings.posts.successMessages.SUCCESSFULLY_UPDATED_POST);
                    });
                   }else{
-                    return responseHelper(res, 201, strings.posts.errorMessages.NOT_ALLOWED);
+                    return responseHelper(res, 403, strings.posts.errorMessages.NOT_ALLOWED);
 
                   }
             }

@@ -16,7 +16,7 @@ const strings = {
       POST_NOT_FOUND: 'No Post Found',
       EMPTY_ID: 'No ID found',
       NOT_NUMBER: 'ID in params is not a number',
-      NOT_ALLOWED: 'You cannot delete this post'
+      NOT_ALLOWED: 'You cannot act on this post'
     },
     successMessages: {
       POSTS_FOUND: 'Posts Retrieved Sucessfully',

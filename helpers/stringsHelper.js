@@ -1,4 +1,9 @@
 const strings = {
+  system: {
+    errorMessages: {
+      SYSTEM_FAILURE: 'Something went terribly wrong on the system. Cannot proceed.',
+    },
+  },
   users: {
     errorMessages: {
       BAD_SIGNUP_REQUEST: 'Unable to sign up user',

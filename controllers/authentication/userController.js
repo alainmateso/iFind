@@ -7,16 +7,17 @@ import verificationHelper, { generateVerificationToken } from '../../helpers/ver
 
 
 export default class userController {
-  static async signupUser({ body }, res) {
+  static async signupUser({ body: { first_name, last_name, phonenumber, email, password } }, res) {
     const user = models.users.build({
-      first_name: body.first_name,
-      last_name: body.last_name,
-      phonenumber: body.phonenumber,
-      email: body.email,
-      password: hashPassword(body.password),
+     first_name,
+     last_name,
+     phonenumber,
+     email,
+      password: hashPassword(password),
     });
-    user.save().then((user) => {
-      return generateVerificationToken(user.id, user.email, res)
+    
+     user.save().then((user) => {
+        return generateVerificationToken(user.id, first_name, email, res)
     });
   }
 

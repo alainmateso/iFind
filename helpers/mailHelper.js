@@ -3,23 +3,28 @@ import nodemailer from 'nodemailer';
 const base_url = process.env.HOST;
 
 const transport = nodemailer.createTransport({
-  host: process.env.MAIL_HOST,
-  port: process.env.MAIL_PORT,
+  host: 'smtp.mailtrap.io',
+  port: 2525,
   auth: {
-    user: process.env.MAIL_USERNAME,
-    pass: process.env.MAIL_PASSWORD,
+    user: '961c274bedc37b',
+    pass: 'ed52754e0fc97b',
   },
 });
 
-export default function (email, token) {
+export default async function (first_name, email, token) {
   const message = {
     from: 'account@ifind.org',
     to: email,
-    subject: 'Account Verification',
-    text: `Please verify your account by following the link ${base_url}/verify?token=${token}&email=${email}`,
+    subject: 'Welcome to iFind! Account Verification',
+    html: `
+        <h3>Dear ${first_name }</h3>
+        <p>Please verify your account by following this <a href="${base_url}/verify?token=${token}&email=${email}">link</a>.
+        <p>If you cannot access the link, copy & paste this ${base_url}/verify?token=${token}&email=${email} URL in your browser.</p>
+        <p>Best regards, <br/><br/> The iFind team </p>
+        `,
   };
 
-  transport.sendMail(message, (err, info) => {
+  await transport.sendMail(message, (err, info) => {
     if (err) return false;
     return true;
   });

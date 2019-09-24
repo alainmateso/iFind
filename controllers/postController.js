@@ -2,6 +2,18 @@ import models from '../models';
 import responseHelper from '../helpers/responseHelper';
 import strings from '../helpers/stringsHelper';
 import servicePost from '../services/servicePost';
+import cloudinary from 'cloudinary';
+import dotEnv from 'dotenv';
+
+dotEnv.config();
+
+const{ CLOUD_NAME, API_KEY, API_SECRET} = process.env
+
+cloudinary.config({
+  cloud_name: CLOUD_NAME,
+  api_key: API_KEY,
+  api_secret: API_SECRET
+});
 
 export default class PostController {
   static async getAllPosts(req, res) {
@@ -25,6 +37,7 @@ export default class PostController {
           category_id: post.category_id,
           type: post.type,
           resolved: post.resolved,
+          image: post.image
         });
       });
       return responseHelper(res, 200, strings.posts.successMessages.POSTS_FOUND, allPosts);
@@ -46,6 +59,7 @@ export default class PostController {
         return responseHelper(res, 404, strings.posts.errorMessages.POST_NOT_FOUND);
       }
       const onePost = {
+        id: post.id,
         full_name: `${post.user.first_name} ${post.user.last_name}`,
         email: post.user.email,
         phonenumber: post.user.phonenumber,
@@ -53,6 +67,7 @@ export default class PostController {
         category_id: post.category_id,
         type: post.type,
         resolved: post.resolved,
+        image: post.image
       };
       return responseHelper(res, 200, strings.posts.successMessages.POST_FOUND, onePost);
     });
@@ -61,8 +76,13 @@ export default class PostController {
   static async createPost(req, res) {
     const user_id = req.user.payload.id;
     const { description, category_id, type } = req.body;
+    const postPhoto = req.files.image.path;
+      cloudinary.uploader.upload(postPhoto, async (result, error) => {
+    if (error) {
+      return responseHelper(res, 400, error)
+    }
     const newPost = {
-      user_id, description, category_id, resolved: false, type,
+      user_id, description, category_id, resolved: false, type, image: result.url
     };
     try {
       const createdPost = await models.posts.create(newPost);
@@ -72,7 +92,8 @@ export default class PostController {
     } catch (error) {
       return error;
     }
-  }
+  });
+}
 
 
   static async deletePost(req, res) {

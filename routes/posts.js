@@ -1,6 +1,7 @@
 import express from 'express';
+import multipart from 'connect-multiparty';
 import PostController from '../controllers/postController';
-import { createPostValidation } from '../validators/postValidator';
+import { createPostValidation, validateImage } from '../validators/postValidator';
 import { validateToken } from '../helpers/tokenHelper';
 import { checkId } from '../middlewares/idMiddleware';
 
@@ -9,8 +10,9 @@ const {
 } = PostController;
 
 const router = express.Router();
+const multipartyMiddleware = multipart();
 
-router.post('/', validateToken, createPostValidation, createPost);
+router.post('/', validateToken, multipartyMiddleware, createPostValidation, validateImage, createPost);
 router.get('/', getAllPosts);
 router.get('/:id', checkId, getOnePost);
 router.delete('/:id', validateToken, PostController.deletePost);

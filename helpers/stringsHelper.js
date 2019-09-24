@@ -5,6 +5,7 @@ const strings = {
       USER_ALREADY_EXISTS: 'User with this email already exists',
       BAD_SIGNIN_REQUEST: 'Unable to sign in user, check info',
       USER_NOT_FOUND_SIGNIN_REQUEST: 'Unable to sign in user, check info',
+      USER_NOT_ACTIVE: 'Your account has been deactivated, please contact admin',
     },
     successMessages: {
       SUCCESSFULLY_CREATED_USER: 'Successfully created user',
@@ -42,31 +43,31 @@ const strings = {
 
 
   admin: {
-    errorMessages:{
-      usernotfound:"can't find that user",
-      categoryfound:"category aleardy exist"
+    errorMessages: {
+      usernotfound: "can't find that user",
+      categoryfound: 'category aleardy exist',
     },
-    successMessages:{
-      user_actived:'user activated successfully',
-      user_deactived:'user deactivated successfully',
-      categorycreated:'category created successfully',
+    successMessages: {
+      user_actived: 'user activated successfully',
+      user_deactived: 'user deactivated successfully',
+      categorycreated: 'category created successfully',
     },
   },
 
-  category:{
-    errorMessages:{
-      categoryerror:"unable to add that category"
+  category: {
+    errorMessages: {
+      categoryerror: 'unable to add that category',
     },
   },
 
   protect: {
-    errorMessages:{
-      token_expered:'Token needed to get access to this page',
-      require_token:'Token expired',
-      Notauthorized:"Not authorized to this page you must be an admin to access this endpoint"
+    errorMessages: {
+      token_expered: 'Token needed to get access to this page',
+      require_token: 'Token expired',
+      Notauthorized: 'Not authorized to this page you must be an admin to access this endpoint',
     },
   },
-  
+
 };
 
 export default strings;

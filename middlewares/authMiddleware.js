@@ -26,3 +26,18 @@ export function verifyExistence({ body: { email } }, res, next) {
     return next();
   });
 }
+
+
+export function verifyIsActive({ body: { email } }, res, next) {
+  models.users.findOne({
+    where: {
+      email,
+    },
+  }).then((user) => {
+    if (user) {
+      if (user.is_active === true) { return next(); }
+      return responseHelper(res, 403, strings.users.errorMessages.USER_NOT_ACTIVE);
+    }
+    return responseHelper(res, 403, strings.users.errorMessages.USER_NOT_FOUND_SIGNIN_REQUEST);
+  });
+}

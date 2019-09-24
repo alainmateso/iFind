@@ -11,6 +11,15 @@ const strings = {
       SUCCESSFULLY_CREATED_USER: 'Successfully created user',
       SUCCESSFULLY_SIGNED_IN_USER: 'Successfully logged in user',
     },
+    verificationMessages: {
+      successMessages: {
+        SUCCESSFULLY_CREATED_USER: 'Successfully created user, please check your email to verify your account',
+        SUCCESSFULLY_VERIFIED_USER: 'Successfully created user, please check your email to verify your account',
+      },
+      errorMessages: {
+        UNABLE_TO_CREATE_VERIFICATION: 'Your account was created, however, we were unable to create a verify token. Please contact admin on +29928837732',
+      },
+    },
   },
   posts: {
     errorMessages: {

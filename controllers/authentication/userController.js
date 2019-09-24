@@ -3,6 +3,7 @@ import responseHelper from '../../helpers/responseHelper';
 import strings from '../../helpers/stringsHelper';
 import { hashPassword, compareHash } from '../../helpers/hashHelper';
 import { signUserToken } from '../../helpers/tokenHelper';
+import verificationHelper, { generateVerificationToken } from '../../helpers/verificationHelper'
 
 
 export default class userController {
@@ -14,9 +15,8 @@ export default class userController {
       email: body.email,
       password: hashPassword(body.password),
     });
-    user.save().then(() => {
-      const token = signUserToken(user);
-      return responseHelper(res, 201, strings.users.successMessages.SUCCESSFULLY_CREATED_USER, { token });
+    user.save().then((user) => {
+      return generateVerificationToken(user.id, user.email, res)
     });
   }
 

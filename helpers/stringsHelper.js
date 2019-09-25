@@ -18,11 +18,13 @@ const strings = {
     },
     verificationMessages: {
       successMessages: {
-        SUCCESSFULLY_CREATED_USER: 'Successfully created user, please check your email to verify your account',
-        SUCCESSFULLY_VERIFIED_USER: 'Successfully created user, please check your email to verify your account',
+        SUCCESSFULLY_SENT_VERIFICATION_EMAIL: 'Successfully created user, please check your email to verify your account',
+        SUCCESSFULLY_VERIFIED_USER: 'User verified successfully.',
       },
       errorMessages: {
         UNABLE_TO_CREATE_VERIFICATION: 'Your account was created, however, we were unable to create a verify token. Please contact admin on +29928837732',
+        EMAIL_ALREADY_VERIFIED: 'This email has already been verified. Please log in instead.',
+        INVALID_TOKEN: 'This token is invalid',
       },
     },
   },

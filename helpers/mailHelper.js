@@ -18,8 +18,8 @@ export default async function (first_name, email, token) {
     subject: 'Welcome to iFind! Account Verification',
     html: `
         <h3>Dear ${first_name }</h3>
-        <p>Please verify your account by following this <a href="${base_url}/verify?token=${token}&email=${email}">link</a>.
-        <p>If you cannot access the link, copy & paste this ${base_url}/verify?token=${token}&email=${email} URL in your browser.</p>
+        <p>Please verify your account by following this <a href="${base_url}/api/v1/verify?token=${token}&email=${email}">link</a>.
+        <p>If you cannot access the link, copy & paste this ${base_url}/api/v1/verify?token=${token}&email=${email} URL in your browser.</p>
         <p>Best regards, <br/><br/> The iFind team </p>
         `,
   };

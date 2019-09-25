@@ -16,7 +16,7 @@ describe('Signup Test', () => {
       .end((err, res) => {
         const { body } = res;
         expect(res.status).to.be.equal(201, 'Incorrect status returned in the response');
-        expect(body).to.have.property('message', strings.users.successMessages.SUCCESSFULLY_CREATED_USER);
+        expect(body).to.have.property('message', strings.users.verificationMessages.successMessages.SUCCESSFULLY_SENT_VERIFICATION_EMAIL);
         done();
       });
   });

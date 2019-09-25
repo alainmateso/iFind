@@ -22,21 +22,13 @@ export default class userController {
   }
 
 
-  static async signinUser({ body }, res) {
-    models.users.findOne({
-      where: {
-        email: body.email,
-      },
-    }).then((user) => {
-      if (user === null) {
-        return responseHelper(res, 404, strings.users.errorMessages.USER_NOT_FOUND_SIGNIN_REQUEST);
-      }
-      if (compareHash(user.dataValues.password, body.password)) {
+  static async signinUser(req, res) {
+   const { user } = req.body;
+      if (compareHash(user.password, req.body.password)) {
         const token = signUserToken(user);
         return responseHelper(res, 201, strings.users.successMessages.SUCCESSFULLY_SIGNED_IN_USER, { token });
       }
       return responseHelper(res, 404, strings.users.errorMessages.USER_NOT_FOUND_SIGNIN_REQUEST);
-    });
   }
   static async adminUser ({body}, res) {
 

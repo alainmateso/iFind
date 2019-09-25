@@ -6,6 +6,7 @@ import strings from '../../helpers/stringsHelper';
 chai.use(chaiHttp);
 chai.should();
 
+
 const user = {
   first_name: 'alain',
   last_name: 'mateso',
@@ -29,7 +30,7 @@ const invalidToken = 'dsdxasdxfedsdsfrdgfers';
 describe('Post test', () => {
   before((done) => {
     chai.request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v1/auth/signin')
       .send(user)
       .end((err, res) => {
         userToken = res.body.data.token;

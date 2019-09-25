@@ -32,7 +32,7 @@ describe('Sign In Test', () => {
       });
   });
 
-  it('Should not sign in user with missing password', (done) => {
+  it('Should not sign in user with missing email', (done) => {
     chai.request(app)
       .post('/api/v1/auth/signin')
       .send(data.signIn.missingEmail)

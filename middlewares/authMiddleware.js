@@ -28,16 +28,20 @@ export function verifyExistence({ body: { email } }, res, next) {
 }
 
 
-export function verifyIsActive({ body: { email } }, res, next) {
+export function verifyIsActive(req, res, next) {
+  const { body: { email } } = req;
   models.users.findOne({
     where: {
       email,
     },
   }).then((user) => {
-    if (user) {
-      if (user.is_active === true) { return next(); }
+    if (user !== null) {
+      if (user.is_active === true) {
+        req.body.user = user;
+        return next();
+      }
       return responseHelper(res, 403, strings.users.errorMessages.USER_NOT_ACTIVE);
     }
-    return responseHelper(res, 403, strings.users.errorMessages.USER_NOT_FOUND_SIGNIN_REQUEST);
+    return responseHelper(res, 404, strings.users.errorMessages.USER_NOT_FOUND_SIGNIN_REQUEST);
   });
 }

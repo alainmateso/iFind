@@ -1,0 +1,491 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : " {{ iFind, the Lost and Found WebApp }}",
+    "version" : "1.0.0",
+    "title" : "iFind-API",
+    "contact" : {
+      "email" : "nignanthomas@gmail.com"
+    }
+  },
+  "host" : "localhost:5000",
+  "basePath" : "/api/v1/",
+  "tags" : [ {
+    "name" : "authentication",
+    "description" : "Operations about user authentication"
+  }, {
+    "name" : "posts",
+    "description" : "Operations about posts"
+  }, {
+    "name" : "admin",
+    "description" : "Operations by Admin-only"
+  } ],
+  "schemes" : [ "http", "https" ],
+  "paths" : {
+    "/auth/signup" : {
+      "post" : {
+        "tags" : [ "authentication" ],
+        "summary" : "Create a user account",
+        "description" : "User sign up",
+        "operationId" : "signupUser",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "User object that is sent to the api",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Signup"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "User created"
+          },
+          "400" : {
+            "description" : "Bad Request "
+          }
+        }
+      }
+    },
+    "/auth/signin" : {
+      "post" : {
+        "tags" : [ "authentication" ],
+        "summary" : "Logs in a user to the system",
+        "description" : "User sign in",
+        "operationId" : "signinUser",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "User object that sent to the api",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Signin"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "User signed in"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        }
+      }
+    },
+    "/posts" : {
+      "get" : {
+        "tags" : [ "posts" ],
+        "summary" : "Get all posts",
+        "description" : "All posts",
+        "operationId" : "getAllPosts",
+        "parameters" : [],
+        "responses" : {
+          "200" : {
+            "description" : "Posts fetched successfully"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "posts" ],
+        "summary" : "Create a post",
+        "description" : "Create post",
+        "operationId" : "createPost",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "header",
+          "name" : "Authorization",
+          "description" : "A token header",
+          "required" : true,
+          "type": "string"
+        },
+        {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Post object to be created",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Post"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Post Created"
+          },
+          "401" : {
+            "description" : "Unathorized - Signin to have access"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        }
+      }
+    },
+    "/posts/{id}" : {
+      "get" : {
+        "tags" : [ "posts" ],
+        "summary" : "Get a post by ID",
+        "description" : "Returns a specific post",
+        "operationId" : "getOnePost",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID of the post to get",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Post fetched successfully",
+            "schema": {
+              "$ref": "#/definitions/PostOutput"
+            }
+          },
+          "400" : {
+            "description" : "Invalid ID inputed"
+          },
+          "404" : {
+            "description" : "Post not found"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "posts" ],
+        "summary" : "Delete a post by ID",
+        "description" : "Returns an empty object",
+        "operationId" : "deletePost",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "header",
+          "name" : "Authorization",
+          "description" : "A token header",
+          "required" : true,
+          "type": "string"
+        },
+        {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID of post to be deleted",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Post successfully deleted"
+          },
+          "400" : {
+            "description" : "Invalid ID inputed"
+          },
+          "404" : {
+            "description" : "Post not found"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "posts" ],
+        "summary" : "Update post by ID",
+        "description" : "Returns an updated post",
+        "operationId" : "updatePost",
+        "produces" : [ "application/json" ],
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "header",
+          "name" : "Authorization",
+          "description" : "A token header",
+          "required" : true,
+          "type": "string"
+        },
+        {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID of the  post to be updated",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        },
+        {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Post object to be updated",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/UpdatePost"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Post successfully updated",
+            "schema" : {
+              "$ref" : "#/definitions/PostOutput"
+            }
+          },
+          "400" : {
+            "description" : "Invalid ID inputed"
+          },
+          "404" : {
+            "description" : "Post not found"
+          }
+        }
+      }
+    },
+    "/posts/resolved/{id}" : {
+      "patch" : {
+        "tags" : [ "posts" ],
+        "summary" : "Mark a Post as resolved",
+        "description" : "Returns a post with the status 'resolved'",
+        "operationId" : "markPostAsResolved",
+        "consumes" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "header",
+          "name" : "Authorization",
+          "description" : "A token header",
+          "required" : true,
+          "type": "string"
+        },
+        {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID of the post to be marked as resolved",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Post Resolved successfully"
+          },
+          "400" : {
+            "description" : "Invalid ID inputed"
+          },
+          "404" : {
+            "description" : "Post not found"
+          }
+        }
+      }
+    },
+    "/deactivate/{id}" : {
+      "patch" : {
+        "tags" : [ "admin" ],
+        "summary" : "Deactivate a user",
+        "description" : "Deactivate a user",
+        "operationId" : "DeactivateUser",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID of the user to be deactivated",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "User successfully deactivated"
+          },
+          "403" : {
+            "description" : "Unauthorized"
+          },
+          "404" : {
+            "description" : "User not found"
+          }
+        }
+      }
+    },
+    "/activate/{id}" : {
+      "patch" : {
+        "tags" : [ "admin" ],
+        "summary" : "Activate a user",
+        "description" : "Activate a user",
+        "operationId" : "ActivateUser",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID of the user to be reactivated",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "User successfully reactivated"
+          },
+          "403" : {
+            "description" : "Unauthorized"
+          },
+          "404" : {
+            "description" : "User not found"
+          }
+        }
+      }
+    },
+    "/category" : {
+      "post" : {
+        "tags" : [ "admin" ],
+        "summary" : "Create a category",
+        "description" : "Create category",
+        "operationId" : "Addcategory",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "header",
+          "name" : "Authorization",
+          "description" : "A token header",
+          "required" : true,
+          "type": "string"
+        },
+        {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Category object to be created",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Category"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Category Created"
+          },
+          "401" : {
+            "description" : "Unathorized - Signin to have access"
+          },
+          "409" : {
+            "description" : "Category Already Exists"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Signup" : {
+      "type" : "object",
+      "properties" : {
+        "email" : {
+          "type" : "string",
+          "example" : "johndoe@email.com"
+        },
+        "first_name" : {
+          "type" : "string",
+          "example" : "John"
+        },
+        "last_name" : {
+          "type" : "string",
+          "example" : "Doe"
+        },
+        "phonenumber" : {
+          "type" : "string",
+          "example" : "0123456789"
+        },
+        "password" : {
+          "type" : "string",
+          "example" : "P@ssW0rD"
+        }
+      },
+      "xml" : {
+        "name" : "Signup"
+      }
+    },
+    "Signin" : {
+      "type" : "object",
+      "properties" : {
+        "email" : {
+          "type" : "string",
+          "example" : "johndoe@email.com"
+        },
+        "password" : {
+          "type" : "string",
+          "example" : "P@ssW0rD"
+        }
+      },
+      "xml" : {
+        "name" : "Signin"
+      }
+    },
+    "Post" : {
+      "type" : "object",
+      "properties" : {
+        "description" : {
+          "type" : "string",
+          "example" : "A Lost iPhone 10 Black"
+        },
+        "category_id" : {
+          "type" : "integer",
+          "example" : 1
+        },
+        "type" : {
+          "type" : "string",
+          "example" : "lost"
+        }
+      },
+      "xml" : {
+        "name" : "Post"
+      }
+    },
+    "PostOutput" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "example" : 1
+        },
+        "full_name" : {
+          "type" : "string",
+          "example" : "John Doe"
+        },
+        "phonenumber" : {
+          "type" : "string",
+          "example" : "0123456789"
+        },
+        "email" : {
+          "type" : "string",
+          "example" : "johndoe@email.com"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "iPhone 10 Black"
+        },
+        "category" : {
+          "type" : "string",
+          "example" : "Electronics"
+        },
+        "type" : {
+          "type" : "string",
+          "example" : "lost"
+        },
+        "resolved" : {
+          "type" : "boolean",
+          "example" : false
+        }
+      },
+      "xml" : {
+        "name" : "PostOutput"
+      }
+    },
+    "Category" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "example" : "Electronics"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Phones, Computers, Earphones, etc"
+        }
+      },
+      "xml" : {
+        "name" : "Category"
+      }
+    }
+  }
+}

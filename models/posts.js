@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     category_id: DataTypes.INTEGER,
     resolved: DataTypes.BOOLEAN,
     type: DataTypes.STRING,
+    image: DataTypes.STRING,
   }, {});
   Posts.associate = function (models) {
     // associations can be defined here

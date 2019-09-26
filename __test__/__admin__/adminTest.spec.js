@@ -100,7 +100,7 @@ it('Should not create category twice', (done) => {
 });
 it('Should activate user', (done) => {
     chai.request(app)
-      .post('/api/v1/admin/activate/1')
+      .patch('/api/v1/admin/activate/1')
       .set('Authorization', `Bearer ${userToken}`)
       .send(user2)
       .end((err, res) => {
@@ -113,7 +113,7 @@ it('Should activate user', (done) => {
 
 it('Should not activate user', (done) => {
     chai.request(app)
-      .post('/api/v1/admin/activate/15')
+      .patch('/api/v1/admin/activate/15')
       .set('Authorization', `Bearer ${userToken}`)
       .send(user2)
       .end((err, res) => {
@@ -126,7 +126,7 @@ it('Should not activate user', (done) => {
 
 it('Should disactivate user', (done) => {
     chai.request(app)
-      .post('/api/v1/admin/deactivate/1')
+      .patch('/api/v1/admin/deactivate/1')
       .set('Authorization', `Bearer ${userToken}`)
       .send(user2)
       .end((err, res) => {
@@ -139,7 +139,7 @@ it('Should disactivate user', (done) => {
 
 it('Should not disactivate user', (done) => {
     chai.request(app)
-      .post('/api/v1/admin/deactivate/15')
+      .patch('/api/v1/admin/deactivate/15')
       .set('Authorization', `Bearer ${userToken}`)
       .send(user2)
       .end((err, res) => {

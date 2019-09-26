@@ -6,16 +6,11 @@ import strings from '../../helpers/stringsHelper';
 chai.use(chaiHttp);
 chai.should();
 
-const user = {
-  first_name: 'alain',
-  last_name: 'mateso',
-  phonenumber: '7878889500',
-  email: 'mateso@gmail.com',
-  password: 'password',
-};
+const { expect } = chai;
 
 let userToken;
 
+let postId;
 const newPost = {
   description: 'This is a lost item',
   category_id: 2,
@@ -29,8 +24,11 @@ const invalidToken = 'dsdxasdxfedsdsfrdgfers';
 describe('Post test', () => {
   before((done) => {
     chai.request(app)
-      .post('/api/v1/auth/signup')
-      .send(user)
+      .post('/api/v1/auth/signin')
+      .send({
+        email: 'johndoe@gmail.com',
+        password: 'default',
+      })
       .end((err, res) => {
         userToken = res.body.data.token;
         done();
@@ -92,6 +90,7 @@ describe('Post test', () => {
       .set('Authorization', `Bearer ${userToken}`)
       .send(newPost)
       .end((err, res) => {
+        postId = res.body.data.id;
         res.should.have.status(201);
         res.body.should.be.a('object');
         res.body.should.have.property('status').eql(201);
@@ -139,7 +138,7 @@ describe('Post test', () => {
 
   it('Should mark a post as resolved', (done) => {
     chai.request(app)
-      .patch('/api/v1/posts/resolved/3')
+      .patch(`/api/v1/posts/resolved/${postId}`)
       .set('Authorization', `Bearer ${userToken}`)
       .send(newPost)
       .end((err, res) => {
@@ -147,6 +146,15 @@ describe('Post test', () => {
         res.body.should.be.a('object');
         res.body.should.have.property('status').eql(200);
         res.body.should.have.property('message').eql(`${strings.posts.successMessages.ISSUE_RESOLVED}`);
+        done();
+      });
+  });
+
+  it('Should return all posts', (done) => {
+    chai.request(app)
+      .get('/api/v1/posts/')
+      .end((err, res) => {
+        expect(res.status).to.be.equal(200);
         done();
       });
   });

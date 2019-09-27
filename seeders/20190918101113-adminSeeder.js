@@ -8,6 +8,7 @@ module.exports = {
       phonenumber: process.env.ADMIN_PHONENUMBER,
       password: '$2b$08$GBLTqNmKrrRLUEpMOmClZOupwxgKNT05YDCZdwOCw5KNRUyW6/9MG',
       is_admin: true,
+      is_verified: true,
       createdAt: new Date(),
       updatedAt: new Date(),
     }], {}),

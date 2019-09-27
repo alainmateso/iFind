@@ -95,7 +95,6 @@ describe('Post test', () => {
       .attach('image', '__test__/__mockdata__/images/AI.png')
       .end((err, res) => {
         postId = res.body.data.id;
-
         res.should.have.status(201);
         res.body.should.be.a('object');
         res.body.should.have.property('status').eql(201);

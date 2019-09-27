@@ -89,7 +89,10 @@ describe('Post test', () => {
     chai.request(app)
       .post('/api/v1/posts')
       .set('Authorization', `Bearer ${userToken}`)
-      .send(newPost)
+      .field('description', 'This is a found item')
+      .field('category_id', '2')
+      .field('type', 'Lost')
+      .attach('image', '__test__/__mockdata__/images/AI.png')
       .end((err, res) => {
         postId = res.body.data.id;
 

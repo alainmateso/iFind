@@ -7,21 +7,6 @@ chai.use(chaiHttp);
 chai.should();
 let userToken;
 let userToken2;
-let postId;
-
-const user = {
-  email: 'jackdoe@gmail.com',
-  password: 'default',
-};
-const user2 = {
-  email: 'jilldoe@gmail.com',
-  password: 'default',
-};
-const newPost = {
-  description: 'This is a lost item',
-  category_id: 2,
-  type: 'Lost',
-};
 
 const updatePost = {
   description: 'This is a found item',
@@ -33,39 +18,28 @@ describe('Delete Post', () => {
   before((done) => {
     chai.request(app)
       .post('/api/v1/auth/signin')
-      .send(user)
+      .send({
+        email: process.env.ADMIN_EMAIL,
+        password: 'default',
+      })
       .end((err, res) => {
         userToken = res.body.data.token;
       });
-
     chai.request(app)
       .post('/api/v1/auth/signin')
-      .send(user2)
+      .send({
+        email: 'janedoe@gmail.com',
+        password: 'default',
+      })
       .end((err, res) => {
         userToken2 = res.body.data.token;
         done();
       });
   });
 
-
-  it('Should create a new post', (done) => {
-    chai.request(app)
-      .post('/api/v1/posts')
-      .set('Authorization', `Bearer ${userToken}`)
-      .send(newPost)
-      .end((err, res) => {
-        postId = res.body.data.id;
-        res.should.have.status(201);
-        res.body.should.be.a('object');
-        res.body.should.have.property('status').eql(201);
-        res.body.should.have.property('message').eql(`${strings.posts.successMessages.ITEM_POSTED_SUCCESSFULLY}`);
-        done();
-      });
-  });
-
   it('Should update a post', (done) => {
     chai.request(app)
-      .put(`/api/v1/posts/${postId}`)
+      .put('/api/v1/posts/4')
       .set('Authorization', `Bearer ${userToken}`)
       .send(updatePost)
       .end((err, res) => {
@@ -91,7 +65,7 @@ describe('Delete Post', () => {
 
   it('It should not update a Post if wrong user', (done) => {
     chai.request(app)
-      .put(`/api/v1/posts/${postId}`)
+      .put('/api/v1/posts/4')
       .set('Authorization', `Bearer ${userToken2}`)
       .set('Accept', 'application/json')
       .send(updatePost)
@@ -105,7 +79,7 @@ describe('Delete Post', () => {
 
   it('It should not delete a Post if wrong user nor admin', (done) => {
     chai.request(app)
-      .delete(`/api/v1/posts/${postId}`)
+      .delete('/api/v1/posts/4')
       .set('Authorization', `Bearer ${userToken2}`)
       .set('Accept', 'application/json')
       .end((err, res) => {
@@ -121,10 +95,9 @@ describe('Delete Post', () => {
   it('It should not delete a Post it doesn\'t exist', (done) => {
     chai.request(app)
       .delete('/api/v1/posts/500')
-      .set('Authorization', `Bearer ${userToken2}`)
+      .set('Authorization', `Bearer ${userToken}`)
       .set('Accept', 'application/json')
       .end((err, res) => {
-        console.log(res.body);
         res.should.have.status(404);
         res.body.should.have.property('status').eql(404);
         res.body.should.have.property('message').eql(`${strings.posts.errorMessages.POST_NOT_FOUND}`);
@@ -134,7 +107,7 @@ describe('Delete Post', () => {
 
   it('It should delete a Post', (done) => {
     chai.request(app)
-      .delete(`/api/v1/posts/${postId}`)
+      .delete('/api/v1/posts/4')
       .set('Authorization', `Bearer ${userToken}`)
       .set('Accept', 'application/json')
       .end((err, res) => {

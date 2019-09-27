@@ -37,6 +37,7 @@ const strings = {
       NOT_ALLOWED: 'You cannot act on this post',
       NOT_YOUR_POST: 'This is not your post!',
       NOT_FOUND: 'Post Not Found',
+      NO_IMAGE: 'No image file selected',
     },
     successMessages: {
       POSTS_FOUND: 'Posts Retrieved Sucessfully',
@@ -82,6 +83,12 @@ const strings = {
       token_expered: 'Token needed to get access to this page',
       require_token: 'Token expired',
       Notauthorized: 'Not authorized to this page you must be an admin to access this endpoint',
+    },
+  },
+
+  image: {
+    errorMessages: {
+      INCORRECT_FORMAT: 'The selected file is not an image',
     },
   },
 

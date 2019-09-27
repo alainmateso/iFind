@@ -11,6 +11,7 @@ const { expect } = chai;
 let userToken;
 
 let postId;
+
 const newPost = {
   description: 'This is a lost item',
   category_id: 2,
@@ -26,7 +27,7 @@ describe('Post test', () => {
     chai.request(app)
       .post('/api/v1/auth/signin')
       .send({
-        email: 'johndoe@gmail.com',
+        email: 'jackdoe@gmail.com',
         password: 'default',
       })
       .end((err, res) => {

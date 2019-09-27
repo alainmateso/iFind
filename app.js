@@ -2,7 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import router from './routes/index';
-import posts from './routes/posts'
+import posts from './routes/posts';
 
 const version = 'v1';
 
@@ -15,5 +15,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/api/v1/posts', posts);
 
 app.use(`/api/${version}`, router);
+
 
 export default app;

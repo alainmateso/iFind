@@ -7,6 +7,23 @@ export const data = {
       email: 'dzabalamacheza@gmail.com',
       password: 'thisismypassword',
     },
+
+    validAccount2: {
+      first_name: 'Macheza',
+      last_name: 'Dzabala',
+      phonenumber: '0991807269',
+      email: 'chezao@gmail.com',
+      password: 'thisismypassword',
+    },
+
+    inactiveSignup: {
+      first_name: 'Macheza',
+      last_name: 'Dzabala',
+      phonenumber: '0991807269',
+      email: 'demouser@gmail.com',
+      password: 'thisismypassword',
+    },
+
     missingEmail: {
       first_name: 'Macheza',
       last_name: 'Dzabala',

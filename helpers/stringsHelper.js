@@ -1,14 +1,32 @@
 const strings = {
+  system: {
+    errorMessages: {
+      SYSTEM_FAILURE: 'Something went terribly wrong on the system. Cannot proceed.',
+    },
+  },
   users: {
     errorMessages: {
       BAD_SIGNUP_REQUEST: 'Unable to sign up user',
       USER_ALREADY_EXISTS: 'User with this email already exists',
       BAD_SIGNIN_REQUEST: 'Unable to sign in user, check info',
       USER_NOT_FOUND_SIGNIN_REQUEST: 'Unable to sign in user, check info',
+      USER_NOT_ACTIVE: 'Your account has been deactivated, please contact admin',
     },
     successMessages: {
       SUCCESSFULLY_CREATED_USER: 'Successfully created user',
       SUCCESSFULLY_SIGNED_IN_USER: 'Successfully logged in user',
+    },
+    verificationMessages: {
+      successMessages: {
+        SUCCESSFULLY_SENT_VERIFICATION_EMAIL: 'Successfully created user, please check your email to verify your account',
+        SUCCESSFULLY_VERIFIED_USER: 'User verified successfully.',
+      },
+      errorMessages: {
+        UNABLE_TO_CREATE_VERIFICATION: 'Your account was created, however, we were unable to create a verify token. Please contact admin on +29928837732',
+        EMAIL_ALREADY_VERIFIED: 'This email has already been verified. Please log in instead.',
+        INVALID_TOKEN: 'This token is invalid',
+        UNVERIFIED_USER: 'You haven\'t verfied your account yet. Please check your email and follow the given link. If no link is provided, please contact the administrator on  +29928837732',
+      },
     },
   },
   posts: {

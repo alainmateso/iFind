@@ -8,8 +8,9 @@ module.exports = (sequelize, DataTypes) => {
     is_active: DataTypes.BOOLEAN,
     is_admin: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false
-    }
+      defaultValue: false,
+    },
+    is_verified: DataTypes.BOOLEAN,
   }, {});
   Users.associate = function (models) {
     // associations can be defined here

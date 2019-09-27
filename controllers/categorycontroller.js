@@ -29,4 +29,10 @@ export default class categoryController {
       return responseHelper(res,403,strings.protect.errorMessages.Notauthorized);
         
     }
+
+    static async allCategories(req, res) {
+      models.category.findAll().then((categories) => {
+        return responseHelper(res, 200, strings.admin.successMessages.categorycreated, categories);
+      })
+    }
 }

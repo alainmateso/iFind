@@ -363,6 +363,18 @@
             "description" : "Bad Request"
           }
         }
+      },
+      "get" : {
+        "tags" : [ "admin" ],
+        "summary" : "Get all categories",
+        "description" : "All categories",
+        "operationId" : "allCategories",
+        "parameters" : [],
+        "responses" : {
+          "200" : {
+            "description" : "Categories fetched successfully"
+          }
+        }
       }
     }
   },

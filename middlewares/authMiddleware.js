@@ -1,3 +1,4 @@
+import { ENAMETOOLONG } from 'constants';
 import { validateSignup, vailidateSignin } from '../validators/authenticationValidator';
 import responseHelper from '../helpers/responseHelper';
 import strings from '../helpers/stringsHelper';
@@ -43,5 +44,22 @@ export function verifyIsActive(req, res, next) {
       return responseHelper(res, 403, strings.users.errorMessages.USER_NOT_ACTIVE);
     }
     return responseHelper(res, 404, strings.users.errorMessages.USER_NOT_FOUND_SIGNIN_REQUEST);
+  });
+}
+
+
+export function checkIfVerified(req, res, next) {
+  const { email } = req.body;
+  models.users.findOne({
+    where: {
+      email,
+    },
+  }).then((user) => {
+    if (user) {
+      if (user.is_verified) {
+        return next();
+      }
+    }
+    return responseHelper(res, 403, strings.users.verificationMessages.errorMessages.UNVERIFIED_USER);
   });
 }

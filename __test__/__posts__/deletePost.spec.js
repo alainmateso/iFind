@@ -8,19 +8,14 @@ chai.should();
 let userToken;
 let userToken2;
 let postId;
+
 const user = {
-  first_name: 'ngira',
-  last_name: 'erico',
-  phonenumber: '7878889500',
-  email: 'erico@andela.com',
-  password: 'erico',
+  email: 'jackdoe@gmail.com',
+  password: 'default',
 };
 const user2 = {
-  first_name: 'ngira',
-  last_name: 'erico',
-  phonenumber: '7878889500',
-  email: 'eric@andela.com',
-  password: 'erico',
+  email: 'jilldoe@gmail.com',
+  password: 'default',
 };
 const newPost = {
   description: 'This is a lost item',
@@ -37,14 +32,14 @@ const updatePost = {
 describe('Delete Post', () => {
   before((done) => {
     chai.request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v1/auth/signin')
       .send(user)
       .end((err, res) => {
         userToken = res.body.data.token;
       });
 
     chai.request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v1/auth/signin')
       .send(user2)
       .end((err, res) => {
         userToken2 = res.body.data.token;

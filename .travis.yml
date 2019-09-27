@@ -15,6 +15,11 @@ env:
   - SECRET_KEY="travissecretkey"
   - TEST_DB=ifindtest
   - DB_USER=postgres
+  - ADMIN_FIRSTNAME="guy"
+  - ADMIN_LASTNAME="one"
+  - ADMIN_EMAIL="guyone@guys.com"
+  - ADMIN_PHONENUMBER="0991807268"
+
 
 before_script:
   - psql -c 'create database ifindtest;' -U postgres

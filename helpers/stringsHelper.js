@@ -25,6 +25,7 @@ const strings = {
         UNABLE_TO_CREATE_VERIFICATION: 'Your account was created, however, we were unable to create a verify token. Please contact admin on +29928837732',
         EMAIL_ALREADY_VERIFIED: 'This email has already been verified. Please log in instead.',
         INVALID_TOKEN: 'This token is invalid',
+        UNVERIFIED_USER: 'You haven\'t verfied your account yet. Please check your email and follow the given link. If no link is provided, please contact the administrator on  +29928837732',
       },
     },
   },

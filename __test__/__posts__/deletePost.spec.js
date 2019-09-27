@@ -28,8 +28,8 @@ describe('Delete Post', () => {
     chai.request(app)
       .post('/api/v1/auth/signin')
       .send({
-        email: 'janedoe@gmail.com',
-        password: 'default',
+        email: 'dzabalamacheza@gmail.com',
+        password: 'thisismypassword',
       })
       .end((err, res) => {
         userToken2 = res.body.data.token;

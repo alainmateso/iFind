@@ -6,7 +6,6 @@ import models from '../../models';
 chai.use(chaiHttp);
 
 let userToken;
-let userID;
 
 describe('Admin Tests', () => {
   before((done) => {
@@ -30,13 +29,9 @@ describe('Admin Tests', () => {
       },
     }).then((user) => {
       chai.request(app)
-        .post(`/api/v1/admin/deactivate/${user.id}`)
+        .patch(`/api/v1/admin/deactivate/${user.id}`)
         .set('Authorization', `Bearer ${userToken}`)
-        .send({
-          is_active: false,
-        })
         .end((err, res) => {
-          console.log(res);
           res.should.have.status(200);
           done();
         });
@@ -45,45 +40,37 @@ describe('Admin Tests', () => {
 
   it('Should not deactivate user', (done) => {
     chai.request(app)
-      .patch('/api/v1/admin/deactivate/15')
+      .patch('/api/v1/admin/deactivate/50')
       .set('Authorization', `Bearer ${userToken}`)
-      .send({
-        is_active: false,
-      })
       .end((err, res) => {
         res.should.have.status(404);
-        res.body.should.be.a('object');
-        res.body.should.have.property('message').eql("can't find that user");
         done();
       });
   });
 
   it('Should activate user', (done) => {
-    chai.request(app)
-      .patch(`/api/v1/admin/activate/${userId}`)
-      .set('Authorization', `Bearer ${userToken}`)
-      .send({
-        is_active: true,
-      })
-      .end((err, res) => {
-        res.should.have.status(200);
-        res.body.should.be.a('object');
-        res.body.should.have.property('message').eql('user activated successfully');
-        done();
-      });
+    models.users.findOne({
+      where: {
+        email: 'janedoe@gmail.com',
+      },
+    }).then((user) => {
+      chai.request(app)
+        .patch(`/api/v1/admin/activate/${user.id}`)
+        .set('Authorization', `Bearer ${userToken}`)
+        .end((err, res) => {
+          res.should.have.status(200);
+          done();
+        });
+    });
   });
 
   it('Should not activate user', (done) => {
     chai.request(app)
-      .patch('/api/v1/admin/activate/15')
+      .patch('/api/v1/admin/activate/50')
       .set('Authorization', `Bearer ${userToken}`)
-      .send({
-        is_active: true,
-      })
       .end((err, res) => {
+        console.log(res.body);
         res.should.have.status(404);
-        res.body.should.be.a('object');
-        res.body.should.have.property('message').eql("can't find that user");
         done();
       });
   });

@@ -12,7 +12,7 @@ describe('Test Runner', () => {
   describe('Get One Post Tests', getOnePostTests);
   describe('Create New Post Test', postTests);
   describe('Category Tests', categoryTests);
-  describe('Admin Tests', adminTests);
   describe('Post tests', postTests);
   describe('Delete Post', deletePost);
+  describe('Admin Tests', adminTests);
 });

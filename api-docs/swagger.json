@@ -271,7 +271,7 @@
         }
       }
     },
-    "/deactivate/{id}" : {
+    "/admin/deactivate/{id}" : {
       "patch" : {
         "tags" : [ "admin" ],
         "summary" : "Deactivate a user",
@@ -298,7 +298,7 @@
         }
       }
     },
-    "/activate/{id}" : {
+    "/admin/activate/{id}" : {
       "patch" : {
         "tags" : [ "admin" ],
         "summary" : "Activate a user",
@@ -325,7 +325,7 @@
         }
       }
     },
-    "/category" : {
+    "/admin/category" : {
       "post" : {
         "tags" : [ "admin" ],
         "summary" : "Create a category",
@@ -373,6 +373,20 @@
         "responses" : {
           "200" : {
             "description" : "Categories fetched successfully"
+          }
+        }
+      }
+    },
+    "/admin/users" : {
+      "get" : {
+        "tags" : [ "admin" ],
+        "summary" : "Get all users",
+        "description" : "All users",
+        "operationId" : "getUsers",
+        "parameters" : [],
+        "responses" : {
+          "200" : {
+            "description" : "Users fetched successfully"
           }
         }
       }

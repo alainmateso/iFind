@@ -9,5 +9,6 @@ const router = new Router();
 router.patch('/activate/:id', validateToken, AdminController.ActivateUser);
 router.patch('/deactivate/:id', validateToken, AdminController.DeactivateUser);
 router.post('/category/', validateToken, checkCategory, categoryController.Addcategory);
+router.get('/users', validateToken, AdminController.getUsers);
 
 export default router;

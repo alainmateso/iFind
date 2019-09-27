@@ -38,8 +38,19 @@ export default class AdminController {
             return responseHelper(res, 200, strings.admin.successMessages.user_actived);
         })
     });
-}
-else
-return responseHelper(res,403,strings.protect.errorMessages.Notauthorized);
-}
+  }
+  else
+  return responseHelper(res,403,strings.protect.errorMessages.Notauthorized);
+  }
+
+  static async getUsers(req, res) {
+    models.users.findAll().then((users) => {
+      if(req.user.payload.is_admin)
+      {
+        return responseHelper(res, 200, strings.admin.successMessages.categorycreated, users);
+      }
+      
+      return responseHelper(res,403,strings.protect.errorMessages.Notauthorized);
+    })
+  }
 }

@@ -76,12 +76,4 @@ describe('Category Tests', () => {
         done();
       });
   });
-
-  // it('Should return all categories', (done) => {
-  //   chai.request(app)
-  //     .get('api/v1/category')
-  //     .end((err, res) => {
-  //       expect(res.status).to.be.equal(200, 'Status incorrect');
-  //     });
-  // });
 });

@@ -4,11 +4,13 @@
   "description": "lost-and-found-webapp",
   "main": "index.js",
   "scripts": {
+    "production": "npm run db:migrate && NODE_ENV=production babel-watch ./server.js",
     "dev": "NODE_ENV=development babel-watch ./server.js",
     "test": "npm run rollback && npm run migrate && npm run seed &&  npm run test-suite",
     "test-suite": " NODE_ENV=test nyc --reporter=html --reporter=text mocha --require @babel/register __test__/index.spec.js --exit --timeout 200000",
     "generate-lcov": "nyc report --reporter=text-lcov > lcov.info && nyc report --reporter=html",
     "migrate": "NODE_ENV=test sequelize db:migrate",
+    "db:migrate": "NODE_ENV=production sequelize db:migrate",
     "seed": "NODE_ENV=test sequelize db:seed:all",
     "rollback": "NODE_ENV=test sequelize db:migrate:undo:all",
     "coveralls-coverage": "coveralls < lcov.info",
@@ -52,9 +54,10 @@
     "morgan": "^1.9.1",
     "nodemailer": "^6.3.0",
     "path": "^0.12.7",
-    "pg": "^7.12.1",
+    "pg": "^7.13.0",
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.18.4",
+    "sequelize-cli": "^5.5.1",
     "swagger-ui-express": "^4.1.1"
   },
   "devDependencies": {
